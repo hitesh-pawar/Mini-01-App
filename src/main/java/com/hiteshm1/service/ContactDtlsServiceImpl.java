@@ -1,6 +1,8 @@
 package com.hiteshm1.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,25 @@ public class ContactDtlsServiceImpl implements ContactDtlsService {
 
 	@Override
 	public List<ContactDTO> getAllContacts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ContactDTO> contactList = new ArrayList<ContactDTO>();
+		List<ContactDtlsEntity> entityList = repo.findAll();
+		entityList.forEach(entity -> {
+			ContactDTO contactDTO = new ContactDTO();
+			BeanUtils.copyProperties(entity, contactDTO);
+			contactList.add(contactDTO);
+		});
+		return contactList;
 	}
 
 	@Override
 	public ContactDTO getContactById(Integer id) {
-		// TODO Auto-generated method stub
+		Optional<ContactDtlsEntity> optional = repo.findById(id);
+		if (optional.isPresent()) {
+			ContactDtlsEntity entity = optional.get();
+			ContactDTO contactDTO = new ContactDTO();
+			BeanUtils.copyProperties(entity, contactDTO);
+			return contactDTO;
+		}
 		return null;
 	}
 
@@ -44,8 +58,8 @@ public class ContactDtlsServiceImpl implements ContactDtlsService {
 
 	@Override
 	public boolean deleteContact(Integer cid) {
-		// TODO Auto-generated method stub
-		return false;
+		repo.deleteById(cid);
+		return true;
 	}
 
 }

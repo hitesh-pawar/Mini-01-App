@@ -18,6 +18,7 @@
 			<tr>
 				<td>Contact Name</td>
 				<td><form:input path="contactName" /></td>
+				<form:hidden path="contactId" /></td>
 			</tr>
 			<tr>
 				<td>Contact Email</td>
@@ -28,10 +29,10 @@
 				<td><form:input path="contactNum" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Save Contact"></td>
+				<td><input type="submit" value="Submit"></td>
 			</tr>
 		</table>
 	</form:form>
-	<a href="#">View All Contacts</a>
+	<a href="viewContacts">View All Contacts</a>
 </body>
 </html>
